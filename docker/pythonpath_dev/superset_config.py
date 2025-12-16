@@ -103,7 +103,10 @@ CELERY_CONFIG = CeleryConfig
 FEATURE_FLAGS = {
     "ALERT_REPORTS": True,
     "EMBEDDED_SUPERSET": True,
-    "ENABLE_TEMPLATE_PROCESSING": True
+    "ENABLE_TEMPLATE_PROCESSING": True,
+    "GLOBAL_ASYNC_QUERIES" : False,
+    "DRILL_BY": False,
+    "DRILL_TO_DETAIL" : False
 }
 
 # CORS Enabling
@@ -145,6 +148,25 @@ LANGUAGES = {
 }
 # Установка русского языка в качестве языка по умолчанию
 BABEL_DEFAULT_LOCALE = "ru"
+
+D3_TIME_FORMAT = {
+   "dateTime": "%A, %e %B %Y г. %X",
+   "date": "%d.%m.%Y",
+   "time": "%H:%M:%S",
+   "periods": ["AM", "PM"],
+   "days": ["воскресенье", "понедельник", "вторник", "среда", "четверг", "пятница", "суббота"],
+   "shortDays": ["вс", "пн", "вт", "ср", "чт", "пт", "сб"],
+   "months": ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"],
+   "shortMonths": ["янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"]
+}
+
+D3_FORMAT = {
+  "decimal": ",",
+  "thousands": "\u00a0",
+  "grouping": [3],
+  "currency": ["", "\u00a0\u20bd"]
+}
+
 
 if os.getenv("CYPRESS_CONFIG") == "true":
     # When running the service as a cypress backend, we need to import the config

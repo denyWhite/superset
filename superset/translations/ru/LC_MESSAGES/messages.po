@@ -4588,7 +4588,7 @@ msgid "Description text that shows up below your Big Number"
 msgstr "Описание, отображаемое под Карточкой"
 
 msgid "Deselect all"
-msgstr "Снять выделение"
+msgstr "Снять все"
 
 msgid "Design with"
 msgstr "Создайте дизайн в"
@@ -9935,7 +9935,7 @@ msgid "Save dataset"
 msgstr "Сохранить датасет"
 
 msgid "Save for this session"
-msgstr "Сохранить на время текущей сессии"
+msgstr "Сохранить для текущей сессии"
 
 msgid "Save or Overwrite Dataset"
 msgstr "Сохранить или перезаписать датасет"
@@ -10142,6 +10142,9 @@ msgid "Select ..."
 msgstr "Выбрать ..."
 
 msgid "Select All"
+msgstr "Выбрать все"
+
+msgid "Select all"
 msgstr "Выбрать все"
 
 #, fuzzy
@@ -14092,7 +14095,7 @@ msgid "Waiting on %s"
 msgstr "Ждем %s"
 
 msgid "Waiting on database..."
-msgstr "Ожидание ответа от базы данных…"
+msgstr "Идёт загрузка данных..."
 
 msgid "Want to add a new database?"
 msgstr "Хотите добавить новую базу данных?"

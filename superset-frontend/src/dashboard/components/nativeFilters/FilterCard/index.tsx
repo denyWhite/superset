@@ -47,9 +47,9 @@ export const FilterCard = ({
       }}
       mouseEnterDelay={0.2}
       mouseLeaveDelay={0.2}
-      onOpenChange={visible => {
-        setInternalIsVisible(externalIsVisible && visible);
-      }}
+      // onOpenChange={visible => {
+      //   setInternalIsVisible(externalIsVisible && visible);
+      // }}
       open={externalIsVisible && internalIsVisible}
       content={<FilterCardContent filter={filter} hidePopover={hidePopover} />}
       getPopupContainer={getPopupContainer ?? (() => document.body)}

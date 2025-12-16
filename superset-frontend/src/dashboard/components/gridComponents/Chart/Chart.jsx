@@ -440,6 +440,13 @@ const Chart = props => {
     // eslint-disable-next-line camelcase
     queriesResponse?.map(({ cached_dttm }) => cached_dttm) || [];
 
+  useEffect(() => {
+    window.parent.postMessage({
+      key: "dashboard",
+      data: formData
+    }, '*');
+  }, [formData])
+
   return (
     <SliceContainer
       className="chart-slice"

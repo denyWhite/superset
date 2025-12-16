@@ -31,6 +31,7 @@ import {
   ThemeMode,
 } from '@superset-ui/core';
 import { ThemeController } from './ThemeController';
+import {SerializableThemeConfig} from "@superset-ui/core";
 
 const ThemeContext = createContext<ThemeContextType | null>(null);
 
@@ -55,6 +56,8 @@ export function SupersetThemeProvider({
     const unsubscribe = themeController.onChange(theme => {
       setCurrentTheme(theme);
       setCurrentThemeMode(themeController.getCurrentMode());
+
+      updateBody(theme.toSerializedConfig())
     });
 
     return unsubscribe;
@@ -149,6 +152,19 @@ export function SupersetThemeProvider({
       createDashboardThemeProvider,
     ],
   );
+
+  // Запись в body какая тема установлена
+  const updateBody = (config: SerializableThemeConfig) => {
+    if (config.algorithm === undefined) {
+      return
+    }
+
+    document.body.dataset.theme = typeof config.algorithm === 'object'
+      ? config.algorithm[0]
+      : config.algorithm;
+  }
+
+  updateBody(currentTheme.toSerializedConfig())
 
   return (
     <ThemeContext.Provider value={contextValue}>

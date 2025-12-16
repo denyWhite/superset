@@ -43,7 +43,6 @@ import {
 } from 'react-reverse-portal';
 import { useSelector } from 'react-redux';
 import {
-  useDashboardHasTabs,
   useSelectFiltersInScope,
 } from 'src/dashboard/components/nativeFilters/state';
 import { FilterBarOrientation, RootState } from 'src/dashboard/types';
@@ -125,8 +124,9 @@ const FilterControls: FC<FilterControlsProps> = ({
     [filtersWithValues],
   );
 
-  const dashboardHasTabs = useDashboardHasTabs();
-  const showCollapsePanel = dashboardHasTabs && filtersWithValues.length > 0;
+  // const dashboardHasTabs = useDashboardHasTabs();
+  // const showCollapsePanel = dashboardHasTabs && filtersWithValues.length > 0;
+  const showCollapsePanel = false;
 
   const renderer = useCallback(
     ({ id }: Filter | Divider, index: number | undefined) => {

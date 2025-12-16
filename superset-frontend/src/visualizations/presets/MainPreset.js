@@ -78,6 +78,8 @@ import {
   TimeGrainFilterPlugin,
 } from 'src/filters/components';
 import { PivotTableChartPlugin as PivotTableChartPluginV2 } from '@superset-ui/plugin-chart-pivot-table';
+import { PivotTableChartPlugin as PivotTableChartPluginCustom } from '@superset-ui/plugin-chart-pivot-table-custom';
+import TableChartPluginCustom from '@superset-ui/plugin-chart-table-custom';
 import { HandlebarsChartPlugin } from '@superset-ui/plugin-chart-handlebars';
 import { FilterPlugins } from 'src/constants';
 import AgGridTableChartPlugin from '@superset-ui/plugin-chart-ag-grid-table';
@@ -133,8 +135,10 @@ export default class MainPreset extends Preset {
         new PartitionChartPlugin().configure({ key: VizType.Partition }),
         new EchartsPieChartPlugin().configure({ key: VizType.Pie }),
         new PivotTableChartPluginV2().configure({ key: VizType.PivotTable }),
+        new PivotTableChartPluginCustom().configure({ key: VizType.PivotTableCustom }),
         new RoseChartPlugin().configure({ key: VizType.Rose }),
         new TableChartPlugin().configure({ key: VizType.Table }),
+        new TableChartPluginCustom().configure({ key: VizType.TableCustom }),
         new TimePivotChartPlugin().configure({ key: VizType.TimePivot }),
         new TimeTableChartPlugin().configure({ key: VizType.TimeTable }),
         new WordCloudChartPlugin().configure({ key: VizType.WordCloud }),

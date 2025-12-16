@@ -99,7 +99,34 @@ class CeleryConfig:
 
 CELERY_CONFIG = CeleryConfig
 
-FEATURE_FLAGS = {"ALERT_REPORTS": True}
+## Embedding into application
+FEATURE_FLAGS = {
+    "ALERT_REPORTS": True,
+    "EMBEDDED_SUPERSET": True,
+    "ENABLE_TEMPLATE_PROCESSING": True
+}
+
+# CORS Enabling
+ENABLE_CORS = True
+CORS_OPTIONS = {
+    "supports_credentials": True,
+    "allow_headers": "*",
+    "expose_headers": "*",
+    "resources": "*",
+    "origins": ["*"] # 5173 for local development
+}
+
+# Dashboard embedding
+GUEST_ROLE_NAME = "Gamma"
+GUEST_TOKEN_JWT_SECRET = os.environ.get('SUPERSET_JWT_SECRET', "")
+GUEST_TOKEN_JWT_ALGO = "HS256"
+GUEST_TOKEN_HEADER_NAME = "X-GuestToken"
+GUEST_TOKEN_JWT_EXP_SECONDS = 86400 # 10 minutes
+
+TALISMAN_ENABLED = False
+
+# SESSION_COOKIE_SAMESITE = None
+
 ALERT_REPORTS_NOTIFICATION_DRY_RUN = True
 WEBDRIVER_BASEURL = f"http://superset_app{os.environ.get('SUPERSET_APP_ROOT', '/')}/"  # When using docker compose baseurl should be http://superset_nginx{ENV{BASEPATH}}/  # noqa: E501
 # The base URL for the email report hyperlinks.
@@ -110,6 +137,14 @@ SQLLAB_CTAS_NO_LIMIT = True
 
 log_level_text = os.getenv("SUPERSET_LOG_LEVEL", "INFO")
 LOG_LEVEL = getattr(logging, log_level_text.upper(), logging.INFO)
+
+# Добавление русского языка в список доступных языков
+LANGUAGES = {
+    "ru": {"flag": "ru", "name": "Русский"},
+    "en": {"flag": "us", "name": "English"}
+}
+# Установка русского языка в качестве языка по умолчанию
+BABEL_DEFAULT_LOCALE = "ru"
 
 if os.getenv("CYPRESS_CONFIG") == "true":
     # When running the service as a cypress backend, we need to import the config

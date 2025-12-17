@@ -18,7 +18,11 @@ import io
 from typing import Any
 
 import pandas as pd
-
+from pandas.api.types import (
+    is_float_dtype,
+    is_integer_dtype,
+    is_datetime64_any_dtype,
+)
 from superset.utils.core import GenericDataType
 
 
@@ -48,7 +52,58 @@ def df_to_excel(df: pd.DataFrame, **kwargs: Any) -> Any:
 
     # pylint: disable=abstract-class-instantiated
     with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
-        df.to_excel(writer, **kwargs)
+        sheet_name = kwargs.get("sheet_name", "Sheet1")
+        df.to_excel(writer, sheet_name=sheet_name, index=False, **kwargs)
+
+        workbook = writer.book
+        worksheet = writer.sheets[sheet_name]
+
+        # Формат заголовка с переносом
+        header_format = workbook.add_format({
+            "bold": True,
+            "text_wrap": True,
+            "valign": "center",
+            "align": "center",
+        })
+
+        money_format = workbook.add_format({
+            "num_format": "#,##0.00",
+        })
+
+        int_format = workbook.add_format({
+            "num_format": "#,##0",
+        })
+
+        date_format = workbook.add_format({
+            "num_format": "yyyy-mm-dd",
+        })
+
+        # Перезаписываем шапку с форматированием
+        for col_num, col_name in enumerate(df.columns):
+            worksheet.write(0, col_num, col_name, header_format)
+
+        # Увеличиваем высоту первой строки
+        worksheet.set_row(0, 50)
+
+        # Увеличиваем ширину колонок
+        for i, col in enumerate(df.columns):
+            max_len = max(
+                df[col].astype(str).map(len).max(),
+                len(col),
+            )
+            width = min(max_len + 2, 20)
+
+            if is_datetime64_any_dtype(df[col]):
+                worksheet.set_column(i, i, width, date_format)
+
+            elif is_float_dtype(df[col]):
+                worksheet.set_column(i, i, width, money_format)
+
+            elif is_integer_dtype(df[col]):
+                worksheet.set_column(i, i, width, int_format)
+
+            else:
+                worksheet.set_column(i, i, width)
 
     return output.getvalue()
 
@@ -78,5 +133,7 @@ def apply_column_types(
                 df[column] = df[column].astype(str)
         elif pd.api.types.is_datetime64tz_dtype(df[column]):
             # timezones are not supported
-            df[column] = df[column].astype(str)
+#           df[column] = df[column].astype(str)
+            df[column] = df[column].dt.tz_convert(None)
+
     return df

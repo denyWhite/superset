@@ -82,6 +82,7 @@ export class TableRenderer extends Component {
 
     this.clickHeaderHandler = this.clickHeaderHandler.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
+    this.mouseOverCellHandler = this.mouseOverCellHandler.bind(this);
   }
 
   getBasePivotSettings() {
@@ -227,6 +228,31 @@ export class TableRenderer extends Component {
     isSubtotal = false,
     isGrandTotal = false,
   ) {
+    const filters = {};
+    for (let i = 0; i <= attrIdx; i += 1) {
+      const attr = attrs[i];
+      filters[attr] = values[i];
+    }
+    return e =>
+      callback(
+        e,
+        values[attrIdx],
+        filters,
+        pivotData,
+        isSubtotal,
+        isGrandTotal,
+      );
+  }
+
+  mouseOverCellHandler(
+     pivotData,
+     values,
+     attrs,
+     attrIdx,
+     callback,
+     isSubtotal = false,
+     isGrandTotal = false,
+   ) {
     const filters = {};
     for (let i = 0; i <= attrIdx; i += 1) {
       const attr = attrs[i];
@@ -465,6 +491,13 @@ export class TableRenderer extends Component {
               attrIdx,
               this.props.tableOptions.clickColumnHeaderCallback,
             )}
+            onMouseOver={this.mouseOverCellHandler(
+              pivotData,
+              colKey,
+              this.props.cols,
+              attrIdx,
+              this.props.tableOptions.mouseOverCellCallback,
+            )}
             onContextMenu={handleContextMenu}
           >
             {displayHeaderCell(
@@ -496,6 +529,14 @@ export class TableRenderer extends Component {
               this.props.tableOptions.clickColumnHeaderCallback,
               true,
             )}
+            onMouseOver={this.mouseOverCellHandler(
+              pivotData,
+              colKey,
+              this.props.cols,
+              attrIdx,
+              this.props.tableOptions.mouseOverCellCallback,
+              true,
+            )}
           >
             {t('Subtotal')}
           </th>,
@@ -518,6 +559,15 @@ export class TableRenderer extends Component {
             this.props.cols,
             attrIdx,
             this.props.tableOptions.clickColumnHeaderCallback,
+            false,
+            true,
+          )}
+          onMouseOver={this.mouseOverCellHandler(
+            pivotData,
+            [],
+            this.props.cols,
+            attrIdx,
+            this.props.tableOptions.mouseOverCellCallback,
             false,
             true,
           )}
@@ -595,6 +645,15 @@ export class TableRenderer extends Component {
             this.props.rows,
             0,
             this.props.tableOptions.clickRowHeaderCallback,
+            false,
+            true,
+          )}
+          onMouseOver={this.mouseOverCellHandler(
+            pivotData,
+            [],
+            this.props.rows,
+            0,
+            this.props.tableOptions.mouseOverCellCallback,
             false,
             true,
           )}
@@ -688,6 +747,13 @@ export class TableRenderer extends Component {
               i,
               this.props.tableOptions.clickRowHeaderCallback,
             )}
+            onMouseOver={this.mouseOverCellHandler(
+              pivotData,
+              rowKey,
+              this.props.rows,
+              i,
+              this.props.tableOptions.mouseOverCellCallback,
+            )}
             onContextMenu={handleContextMenu}
           >
             {displayHeaderCell(
@@ -720,6 +786,14 @@ export class TableRenderer extends Component {
             this.props.rows,
             rowKey.length,
             this.props.tableOptions.clickRowHeaderCallback,
+            true,
+          )}
+          onMouseOver={this.mouseOverCellHandler(
+            pivotData,
+            rowKey,
+            this.props.rows,
+            rowKey.length,
+            this.props.tableOptions.mouseOverCellCallback,
             true,
           )}
         >
@@ -837,6 +911,15 @@ export class TableRenderer extends Component {
           this.props.rows,
           0,
           this.props.tableOptions.clickRowHeaderCallback,
+          false,
+          true,
+        )}
+        onMouseOver={this.mouseOverCellHandler(
+          pivotData,
+          [],
+          this.props.rows,
+          0,
+          this.props.tableOptions.mouseOverCellCallback,
           false,
           true,
         )}

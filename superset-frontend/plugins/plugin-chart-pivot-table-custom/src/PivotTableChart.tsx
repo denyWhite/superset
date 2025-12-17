@@ -481,11 +481,38 @@ export default function PivotTableChart(props: PivotTableProps) {
     [emitCrossFilters, selectedFilters, handleChange],
   );
 
+  const mouseOverCellHandler = (
+    event: any,
+    value: any,
+    filters: any,
+    pivotData: any,
+    isSubtotal: boolean,
+    isGrandTotal: boolean,
+  ) => {
+
+    const data = {
+      key: "chart-pivot-table-custom",
+      data: {
+        type: 'mouseover',
+        value: value,
+        points: {
+          clientX: event.nativeEvent.clientX,
+          clientY: event.nativeEvent.clientY
+        },
+        isSubtotal,
+        isGrandTotal,
+      },
+    };
+
+    window.parent.postMessage(data, "*");
+  }
+
   const tableOptions = useMemo(
     () => ({
       clickCallback: clickCallback,
       clickRowHeaderCallback: toggleFilter,
       clickColumnHeaderCallback: toggleFilter,
+      mouseOverCellCallback: mouseOverCellHandler,
       colTotals,
       colSubTotals,
       rowTotals,
@@ -509,7 +536,8 @@ export default function PivotTableChart(props: PivotTableProps) {
       rowSubTotals,
       selectedFilters,
       toggleFilter,
-      clickCallback
+      clickCallback,
+      mouseOverCellHandler
     ],
   );
 

@@ -496,26 +496,26 @@ const SliceHeaderControls = (
         {
           key: MenuKeys.ExportCsv,
           label: t('Export to .CSV'),
-          icon: <Icons.FileOutlined css={dropdownIconsStyles} />,
+          icon: <Icons.DownloadOutlined css={dropdownIconsStyles} />,
         },
         ...(isPivotTable
           ? [
               {
                 key: MenuKeys.ExportPivotCsv,
                 label: t('Export to Pivoted .CSV'),
-                icon: <Icons.FileOutlined css={dropdownIconsStyles} />,
+                icon: <Icons.DownloadOutlined css={dropdownIconsStyles} />,
               },
               {
                 key: MenuKeys.ExportPivotXlsx,
                 label: t('Export to Pivoted Excel'),
-                icon: <Icons.FileOutlined css={dropdownIconsStyles} />,
+                icon: <Icons.DownloadOutlined css={dropdownIconsStyles} />,
               },
             ]
           : []),
         {
           key: MenuKeys.ExportXlsx,
           label: t('Export to Excel'),
-          icon: <Icons.FileOutlined css={dropdownIconsStyles} />,
+          icon: <Icons.DownloadOutlined css={dropdownIconsStyles} />,
         },
         ...(isFeatureEnabled(FeatureFlag.AllowFullCsvExport) &&
         props.supersetCanCSV &&
@@ -524,12 +524,12 @@ const SliceHeaderControls = (
               {
                 key: MenuKeys.ExportFullCsv,
                 label: t('Export to full .CSV'),
-                icon: <Icons.FileOutlined css={dropdownIconsStyles} />,
+                icon: <Icons.DownloadOutlined css={dropdownIconsStyles} />,
               },
               {
                 key: MenuKeys.ExportFullXlsx,
                 label: t('Export to full Excel'),
-                icon: <Icons.FileOutlined css={dropdownIconsStyles} />,
+                icon: <Icons.DownloadOutlined css={dropdownIconsStyles} />,
               },
             ]
           : []),

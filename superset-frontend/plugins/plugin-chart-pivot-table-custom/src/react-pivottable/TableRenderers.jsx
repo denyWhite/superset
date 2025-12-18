@@ -82,7 +82,8 @@ export class TableRenderer extends Component {
 
     this.clickHeaderHandler = this.clickHeaderHandler.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
-    this.mouseOverCellHandler = this.mouseOverCellHandler.bind(this);
+    this.mouseEnterCellHandler = this.mouseEnterCellHandler.bind(this);
+    this.mouseLeaveCellHandler = this.mouseLeaveCellHandler.bind(this);
   }
 
   getBasePivotSettings() {
@@ -244,7 +245,7 @@ export class TableRenderer extends Component {
       );
   }
 
-  mouseOverCellHandler(
+  mouseEnterCellHandler(
      pivotData,
      values,
      attrs,
@@ -253,6 +254,31 @@ export class TableRenderer extends Component {
      isSubtotal = false,
      isGrandTotal = false,
    ) {
+    const filters = {};
+    for (let i = 0; i <= attrIdx; i += 1) {
+      const attr = attrs[i];
+      filters[attr] = values[i];
+    }
+    return e =>
+      callback(
+        e,
+        values[attrIdx],
+        filters,
+        pivotData,
+        isSubtotal,
+        isGrandTotal,
+      );
+  }
+
+  mouseLeaveCellHandler(
+    pivotData,
+    values,
+    attrs,
+    attrIdx,
+    callback,
+    isSubtotal = false,
+    isGrandTotal = false,
+  ) {
     const filters = {};
     for (let i = 0; i <= attrIdx; i += 1) {
       const attr = attrs[i];
@@ -491,12 +517,19 @@ export class TableRenderer extends Component {
               attrIdx,
               this.props.tableOptions.clickColumnHeaderCallback,
             )}
-            onMouseOver={this.mouseOverCellHandler(
+            onMouseEnter={this.mouseEnterCellHandler(
               pivotData,
               colKey,
               this.props.cols,
               attrIdx,
-              this.props.tableOptions.mouseOverCellCallback,
+              this.props.tableOptions.mouseEnterCellCallback,
+            )}
+            onMouseLeave={this.mouseLeaveCellHandler(
+              pivotData,
+              colKey,
+              this.props.cols,
+              attrIdx,
+              this.props.tableOptions.mouseLeaveCellCallback,
             )}
             onContextMenu={handleContextMenu}
           >
@@ -529,13 +562,21 @@ export class TableRenderer extends Component {
               this.props.tableOptions.clickColumnHeaderCallback,
               true,
             )}
-            onMouseOver={this.mouseOverCellHandler(
+            onMouseEnter={this.mouseEnterCellHandler(
               pivotData,
               colKey,
               this.props.cols,
               attrIdx,
-              this.props.tableOptions.mouseOverCellCallback,
+              this.props.tableOptions.mouseEnterCellCallback,
               true,
+            )}
+            onMouseLeave={this.mouseLeaveCellHandler(
+              pivotData,
+              colKey,
+              this.props.cols,
+              attrIdx,
+              this.props.tableOptions.mouseLeaveCellCallback,
+              true
             )}
           >
             {t('Subtotal')}
@@ -562,12 +603,21 @@ export class TableRenderer extends Component {
             false,
             true,
           )}
-          onMouseOver={this.mouseOverCellHandler(
+          onMouseEnter={this.mouseEnterCellHandler(
             pivotData,
             [],
             this.props.cols,
             attrIdx,
-            this.props.tableOptions.mouseOverCellCallback,
+            this.props.tableOptions.mouseEnterCellCallback,
+            false,
+            true,
+          )}
+          onMouseLeave={this.mouseLeaveCellHandler(
+            pivotData,
+            [],
+            this.props.cols,
+            attrIdx,
+            this.props.tableOptions.mouseLeaveCellCallback,
             false,
             true,
           )}
@@ -648,12 +698,21 @@ export class TableRenderer extends Component {
             false,
             true,
           )}
-          onMouseOver={this.mouseOverCellHandler(
+          onMouseEnter={this.mouseEnterCellHandler(
             pivotData,
             [],
             this.props.rows,
             0,
-            this.props.tableOptions.mouseOverCellCallback,
+            this.props.tableOptions.mouseEnterCellCallback,
+            false,
+            true,
+          )}
+          onMouseLeave={this.mouseLeaveCellHandler(
+            pivotData,
+            [],
+            this.props.rows,
+            0,
+            this.props.tableOptions.mouseLeaveCellCallback,
             false,
             true,
           )}
@@ -747,12 +806,19 @@ export class TableRenderer extends Component {
               i,
               this.props.tableOptions.clickRowHeaderCallback,
             )}
-            onMouseOver={this.mouseOverCellHandler(
+            onMouseEnter={this.mouseEnterCellHandler(
               pivotData,
               rowKey,
               this.props.rows,
               i,
-              this.props.tableOptions.mouseOverCellCallback,
+              this.props.tableOptions.mouseEnterCellCallback,
+            )}
+            onMouseLeave={this.mouseLeaveCellHandler(
+              pivotData,
+              rowKey,
+              this.props.rows,
+              i,
+              this.props.tableOptions.mouseLeaveCellCallback,
             )}
             onContextMenu={handleContextMenu}
           >
@@ -788,13 +854,21 @@ export class TableRenderer extends Component {
             this.props.tableOptions.clickRowHeaderCallback,
             true,
           )}
-          onMouseOver={this.mouseOverCellHandler(
+          onMouseEnter={this.mouseEnterCellHandler(
             pivotData,
             rowKey,
             this.props.rows,
             rowKey.length,
-            this.props.tableOptions.mouseOverCellCallback,
+            this.props.tableOptions.mouseEnterCellCallback,
             true,
+          )}
+          onMouseLeave={this.mouseLeaveCellHandler(
+            pivotData,
+            rowKey,
+            this.props.rows,
+            rowKey.length,
+            this.props.tableOptions.mouseLeaveCellCallback,
+            true
           )}
         >
           {t('Subtotal')}
@@ -914,12 +988,21 @@ export class TableRenderer extends Component {
           false,
           true,
         )}
-        onMouseOver={this.mouseOverCellHandler(
+        onMouseEnter={this.mouseEnterCellHandler(
           pivotData,
           [],
           this.props.rows,
           0,
-          this.props.tableOptions.mouseOverCellCallback,
+          this.props.tableOptions.mouseEnterCellCallback,
+          false,
+          true,
+        )}
+        onMouseLeave={this.mouseLeaveCellHandler(
+          pivotData,
+          [],
+          this.props.rows,
+          0,
+          this.props.tableOptions.mouseLeaveCellCallback,
           false,
           true,
         )}

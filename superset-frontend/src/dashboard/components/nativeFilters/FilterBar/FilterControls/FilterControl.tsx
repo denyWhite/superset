@@ -97,7 +97,7 @@ const VerticalFilterControlContainer = styled(AllFilterControlContainer)`
 
   && .ant-form-item-label > label {
     text-transform: none;
-    width: 100%;
+    width: auto;
     padding-right: ${({ theme }) => theme.sizeUnit * 11}px;
   }
   .ant-form-item-tooltip {

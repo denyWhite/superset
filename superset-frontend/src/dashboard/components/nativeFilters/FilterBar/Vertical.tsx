@@ -65,7 +65,7 @@ const Bar = styled.div<{ width: number }>`
     width: ${width}px;
     background: ${theme.colorBgContainer};
     border-right: 1px solid ${theme.colorSplit};
-    border-bottom: 1px solid ${theme.colorSplit};
+    // border-bottom: 1px solid ${theme.colorSplit};
     min-height: 100%;
     display: none;
     &.open {
@@ -88,7 +88,7 @@ const CollapsedBar = styled.div<{ offset: number }>`
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: ${theme.sizeUnit * 2}px;
+      // padding: ${theme.sizeUnit * 2}px;
     }
     svg {
       cursor: pointer;
@@ -107,7 +107,7 @@ const FilterControlsWrapper = styled.div`
     gap: ${theme.sizeUnit * 2}px;
     padding: ${theme.sizeUnit * 4}px;
     // 108px padding to make room for buttons with position: absolute
-    padding-bottom: ${theme.sizeUnit * 27}px;
+    padding-bottom: ${theme.sizeUnit * 8}px;
   `}
 `;
 
@@ -230,10 +230,10 @@ const VerticalFilterBar: FC<VerticalBarProps> = ({
               <>
                 <CrossFiltersVertical />
                 {filterControls}
+                {actions}
               </>
             </div>
           )}
-          {actions}
         </Bar>
       </BarWrapper>
     </FilterBarScrollContext.Provider>

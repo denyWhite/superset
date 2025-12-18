@@ -315,7 +315,7 @@ const StyledDashboardContent = styled.div<{
     }
 
     .dashboard-component-chart-holder {
-      width: 100%;
+      width: auto;
       height: 100%;
       background-color: ${theme.colorBgContainer};
       position: relative;

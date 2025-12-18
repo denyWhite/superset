@@ -62,15 +62,15 @@ const containerStyle = (theme: SupersetTheme) => css`
 const verticalStyle = (theme: SupersetTheme, width: number) => css`
   flex-direction: column;
   align-items: center;
-  position: fixed;
+  //position: fixed;
   z-index: 100;
 
   // filter bar width minus 1px for border
   width: ${width - 1}px;
   bottom: 0;
 
-  padding: ${theme.sizeUnit * 4}px;
-  padding-top: ${theme.sizeUnit * 6}px;
+  // padding: ${theme.sizeUnit * 4}px;
+  // padding-top: ${theme.sizeUnit * 6}px;
 
   background: linear-gradient(
     ${tinycolor(theme.colorBgLayout).setAlpha(0).toRgbString()},

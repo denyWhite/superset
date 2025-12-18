@@ -481,7 +481,7 @@ export default function PivotTableChart(props: PivotTableProps) {
     [emitCrossFilters, selectedFilters, handleChange],
   );
 
-  const mouseOverCellHandler = (
+  const mouseEnterCellHandler = (
     event: any,
     value: any,
     filters: any,
@@ -493,7 +493,33 @@ export default function PivotTableChart(props: PivotTableProps) {
     const data = {
       key: "chart-pivot-table-custom",
       data: {
-        type: 'mouseover',
+        type: 'mouseenter',
+        value: value,
+        points: {
+          clientX: event.nativeEvent.clientX,
+          clientY: event.nativeEvent.clientY
+        },
+        isSubtotal,
+        isGrandTotal,
+      },
+    };
+
+    window.parent.postMessage(data, "*");
+  }
+
+  const mouseLeaveCellHandler = (
+    event: any,
+    value: any,
+    filters: any,
+    pivotData: any,
+    isSubtotal: boolean,
+    isGrandTotal: boolean,
+  ) => {
+
+    const data = {
+      key: "chart-pivot-table-custom",
+      data: {
+        type: 'mouseleave',
         value: value,
         points: {
           clientX: event.nativeEvent.clientX,
@@ -512,7 +538,8 @@ export default function PivotTableChart(props: PivotTableProps) {
       clickCallback: clickCallback,
       clickRowHeaderCallback: toggleFilter,
       clickColumnHeaderCallback: toggleFilter,
-      mouseOverCellCallback: mouseOverCellHandler,
+      mouseEnterCellCallback: mouseEnterCellHandler,
+      mouseLeaveCellCallback: mouseLeaveCellHandler,
       colTotals,
       colSubTotals,
       rowTotals,
@@ -537,7 +564,8 @@ export default function PivotTableChart(props: PivotTableProps) {
       selectedFilters,
       toggleFilter,
       clickCallback,
-      mouseOverCellHandler
+      mouseEnterCellHandler,
+      mouseLeaveCellHandler,
     ],
   );
 

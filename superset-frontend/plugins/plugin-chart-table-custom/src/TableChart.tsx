@@ -1014,6 +1014,7 @@ export default function TableChart<D extends DataRecord = DataRecord>(
             title: typeof value === 'number' ? String(value) : undefined,
             "data-column": column.key,
             "data-column-label": displayLabel,
+            "data-column-value": text,
             onClick:
               emitCrossFilters && !valueRange && !isMetric
                 ? () => {

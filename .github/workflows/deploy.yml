@@ -18,4 +18,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.KEY }}
-          script: "cd /var/www/superset_new/ && cp ./scripts/deploy.sh ./scripts/run.sh && chmod +x ./scripts/run.sh && ./scripts/run.sh"
+          script: "cd /var/www/superset/ && cp ./scripts/deploy.sh ./scripts/run.sh && chmod +x ./scripts/run.sh && ./scripts/run.sh"

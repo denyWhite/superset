@@ -26,6 +26,7 @@ import sys
 
 from celery.schedules import crontab
 from flask_caching.backends.filesystemcache import FileSystemCache
+from redis import Redis
 
 logger = logging.getLogger()
 
@@ -128,7 +129,31 @@ GUEST_TOKEN_JWT_EXP_SECONDS = 86400 # 10 minutes
 
 TALISMAN_ENABLED = False
 
-# SESSION_COOKIE_SAMESITE = None
+# ========Recommended for PRODUCTION
+# SESSION_COOKIE_SAMESITE = 'None'
+# SESSION_COOKIE_SECURE = True
+# SESSION_COOKIE_HTTPONLY = True
+
+# 1. Enable server-side sessions
+# SESSION_SERVER_SIDE = True
+
+# 2. Choose your backend (e.g., 'redis', 'memcached', 'filesystem', 'sqlalchemy')
+# SESSION_TYPE = 'redis'
+
+# 3. Configure your Redis connection
+# Use environment variables for sensitive details
+# SESSION_REDIS = Redis(
+#    host=REDIS_HOST,
+#    port=REDIS_PORT,
+#    password=os.environ.get('REDIS_PASSWORD'),
+#    db=int(os.environ.get('REDIS_DB', 0)),
+#    ssl=os.environ.get('REDIS_SSL_ENABLED', 'True').lower() == 'true',
+#    ssl_cert_reqs='required' # Or another appropriate SSL setting
+#)
+
+# 4. Ensure the session cookie is signed for integrity
+# SESSION_USE_SIGNER = True
+
 
 ALERT_REPORTS_NOTIFICATION_DRY_RUN = True
 WEBDRIVER_BASEURL = f"http://superset_app{os.environ.get('SUPERSET_APP_ROOT', '/')}/"  # When using docker compose baseurl should be http://superset_nginx{ENV{BASEPATH}}/  # noqa: E501

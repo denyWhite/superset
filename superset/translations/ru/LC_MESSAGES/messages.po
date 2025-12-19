@@ -14092,7 +14092,8 @@ msgstr ""
 
 #, python-format
 msgid "Waiting on %s"
-msgstr "Ждем %s"
+msgstr "Идёт загрузка данных..."
+#msgstr "Ждем %s"
 
 msgid "Waiting on database..."
 msgstr "Идёт загрузка данных..."

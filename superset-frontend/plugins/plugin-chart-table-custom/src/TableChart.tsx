@@ -1030,7 +1030,15 @@ export default function TableChart<D extends DataRecord = DataRecord>(
                       toggleFilter(key, value);
                     }
                   }
-                : undefined,
+                : () => {
+                  onCellClick(
+                    column,
+                    row,
+                    key,
+                    value,
+                    'row'
+                  )
+                },
             onContextMenu: (e: MouseEvent) => {
               if (handleContextMenu) {
                 e.preventDefault();
